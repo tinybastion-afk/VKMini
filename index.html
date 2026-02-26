@@ -15,7 +15,6 @@
 
   <div class="max-w-md mx-auto bg-white min-h-screen shadow-xl overflow-hidden">
     
-    <!-- Header с фото и именем -->
     <div id="header" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 flex items-center gap-4">
       <img id="userPhoto" class="w-16 h-16 rounded-2xl border-2 border-white object-cover" alt="Фото">
       <div>
@@ -27,7 +26,6 @@
     <div class="p-6">
       <form id="form" class="space-y-8">
 
-        <!-- Поля ввода -->
         <div class="space-y-6">
           <div>
             <label class="block text-sm font-medium text-zinc-700 mb-1">Город</label>
@@ -48,7 +46,6 @@
           </div>
         </div>
 
-        <!-- Совершеннолетие (обязательно) -->
         <div class="flex items-start gap-3 bg-amber-50 p-4 rounded-3xl">
           <input type="checkbox" id="adult" required class="mt-1 w-5 h-5 accent-blue-600">
           <label for="adult" class="text-sm text-zinc-700">
@@ -57,12 +54,9 @@
           </label>
         </div>
 
-        <!-- Галочки по вкусу -->
         <div>
           <p class="text-sm font-medium text-zinc-700 mb-3">Мои предпочтения (ставь любые галочки)</p>
-          <div id="preferences" class="grid grid-cols-2 gap-3 text-sm">
-            <!-- Галочки добавятся через JS -->
-          </div>
+          <div id="preferences" class="grid grid-cols-2 gap-3 text-sm"></div>
         </div>
 
         <button type="submit" 
@@ -73,7 +67,6 @@
     </div>
   </div>
 
-  <!-- Модалка успеха -->
   <div id="successModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center">
     <div class="bg-white rounded-3xl p-8 max-w-xs w-full text-center">
       <div class="text-6xl mb-4">🎉</div>
@@ -93,7 +86,6 @@
       "Фотография", "Танцы", "Авто", "Технологии"
     ];
 
-    // Генерируем чекбоксы
     const prefContainer = document.getElementById('preferences');
     preferencesList.forEach(item => {
       const div = document.createElement('div');
@@ -105,28 +97,18 @@
       prefContainer.appendChild(div);
     });
 
-    // Инициализация VK Bridge
     async function initApp() {
       try {
         await vkBridge.send('VKWebAppInit');
         const user = await vkBridge.send('VKWebAppGetUserInfo');
-
         document.getElementById('userName').textContent = `${user.first_name} ${user.last_name}`;
-        if (user.photo_200) {
-          document.getElementById('userPhoto').src = user.photo_200;
-        }
-      } catch (e) {
-        console.error('VK Bridge error', e);
-      }
+        if (user.photo_200) document.getElementById('userPhoto').src = user.photo_200;
+      } catch (e) { console.error(e); }
     }
 
-    // Отправка формы
     document.getElementById('form').addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      const selectedPrefs = Array.from(document.querySelectorAll('#preferences input:checked'))
-                               .map(cb => cb.value);
-
+      const selectedPrefs = Array.from(document.querySelectorAll('#preferences input:checked')).map(cb => cb.value);
       const data = {
         vk_id: (await vkBridge.send('VKWebAppGetUserInfo')).id,
         city: document.getElementById('city').value.trim(),
@@ -135,14 +117,10 @@
         adult: document.getElementById('adult').checked,
         preferences: selectedPrefs
       };
-
-      console.log('📤 Данные анкеты:', data);
-      // Здесь можешь отправить на свой сервер: fetch('https://твой-сервер.ru/api', { method: 'POST', body: JSON.stringify(data) })
-
+      console.log('📤 Данные:', data);
       document.getElementById('successModal').classList.remove('hidden');
     });
 
-    // Запуск
     window.onload = initApp;
   </script>
 </body>
