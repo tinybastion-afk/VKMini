@@ -27,44 +27,43 @@
 
     <div class="p-6 space-y-8">
 
-      <div>
-        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">👤</span> Основная информация</h2>
-        <div class="space-y-4">
-          <input type="text" id="nick" placeholder="Ник / имя" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
-          <input type="number" id="age" min="18" placeholder="Возраст (18+)" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
-          <input type="text" id="tg" placeholder="Telegram / VK для связи" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
-          <select id="gender" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
-            <option value="">Пол / гендер</option>
-            <option value="Мужской">Мужской</option>
-            <option value="Женский">Женский</option>
-            <option value="Нон-байнари">Нон-байнари</option>
-            <option value="Транс">Транс</option>
-          </select>
-          <select id="role" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
-            <option value="">Роль в постели</option>
-            <option value="Доминант">Доминант</option>
-            <option value="Сабмиссив">Сабмиссив</option>
-            <option value="Свитч">Свитч</option>
-          </select>
-          <input type="text" id="city" placeholder="Город / где ищем" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
-        </div>
-      </div>
-
-      <div>
-        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">📝</span> О себе и персонаже</h2>
-        <textarea id="about" rows="4" placeholder="Внешность, опыт, фантазии..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg resize-none"></textarea>
-      </div>
-
-      <div>
-        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">🔍</span> Что ищу</h2>
-        <textarea id="search" rows="3" placeholder="Возраст, роль, обязательные условия..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg resize-none"></textarea>
-      </div>
-
+      <!-- Галочка 18+ сверху -->
       <div class="bg-red-900/30 border border-red-500/50 p-5 rounded-3xl">
         <label class="flex items-center gap-3 cursor-pointer">
           <input type="checkbox" id="adult" required class="w-6 h-6 accent-pink-600">
           <span class="text-lg">Мне исполнилось 18 лет и я согласен(а) с NSFW-контентом</span>
         </label>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">📝</span> О себе и персонаже</h2>
+        <textarea id="about" rows="5" placeholder="Внешность, опыт, характер, что нравится..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg resize-none"></textarea>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">⚧</span> Пол</h2>
+        <select id="gender" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
+          <option value="">Выбери пол</option>
+          <option value="Мужской">Мужской</option>
+          <option value="Женский">Женский</option>
+          <option value="Нон-байнари">Нон-байнари</option>
+          <option value="Транс">Транс</option>
+        </select>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">🔥</span> Позиция в сюжетах</h2>
+        <select id="role" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
+          <option value="">Выбери позицию</option>
+          <option value="Актив">Актив</option>
+          <option value="Пассив">Пассив</option>
+          <option value="Уни">Уни</option>
+        </select>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">🔍</span> Что ищу</h2>
+        <textarea id="search" rows="3" placeholder="Что ищу в партнёре..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg resize-none"></textarea>
       </div>
 
       <details class="group">
@@ -82,25 +81,19 @@
     </div>
   </div>
 
-  <!-- Модалка с таймером и полным текстом -->
+  <!-- Модалка с таймером и текстом -->
   <div id="successModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
     <div class="bg-zinc-900 rounded-3xl p-8 max-w-sm w-full text-center border border-pink-500">
       <div class="text-6xl mb-4">✅</div>
       <h2 class="text-2xl font-bold mb-2">Анкета скопирована!</h2>
       <p class="text-zinc-400 mb-4">Текст готов к вставке</p>
 
-      <div class="bg-zinc-950 rounded-2xl p-4 text-left text-sm max-h-64 overflow-auto mb-6 border border-zinc-700">
+      <div class="bg-zinc-950 rounded-2xl p-4 text-left text-sm max-h-80 overflow-auto mb-6 border border-zinc-700">
         <pre id="copiedText" class="whitespace-pre-wrap text-zinc-300"></pre>
       </div>
 
       <div id="timerContainer" class="text-pink-400 text-xl font-medium mb-6">
-        Перенаправление через <span id="countdown" class="text-3xl font-bold">3</span> секунды...
-      </div>
-
-      <div class="text-xs text-zinc-500 mb-8">
-        1. Нажми «Предложить новость»<br>
-        2. Вставь текст (Ctrl + V)<br>
-        3. Нажми «Далее» → «Предложить»
+        Открываю предложенные новости через <span id="countdown" class="text-3xl font-bold">3</span>...
       </div>
 
       <button onclick="location.reload()" class="w-full bg-zinc-700 py-4 rounded-3xl font-medium">
@@ -139,24 +132,23 @@
     function generatePostText() {
       let text = '';
 
-      if (document.getElementById('nick').value) text += `Ник: ${document.getElementById('nick').value}\n`;
-      if (document.getElementById('age').value) text += `Возраст: ${document.getElementById('age').value}\n`;
-      if (document.getElementById('tg').value) text += `Контакт: ${document.getElementById('tg').value}\n`;
-      if (document.getElementById('gender').value) text += `Пол: ${document.getElementById('gender').value}\n`;
-      if (document.getElementById('role').value) text += `Роль: ${document.getElementById('role').value}\n`;
-      if (document.getElementById('city').value) text += `Город: ${document.getElementById('city').value}\n`;
-
       const about = document.getElementById('about').value.trim();
-      if (about) text += `\nО себе:\n${about}\n`;
+      if (about) text += `О себе:\n${about}\n\n`;
+
+      if (document.getElementById('gender').value) text += `Пол: ${document.getElementById('gender').value}\n`;
+
+      if (document.getElementById('role').value) text += `Позиция в сюжетах: ${document.getElementById('role').value}\n`;
 
       const search = document.getElementById('search').value.trim();
-      if (search) text += `\nИщу:\n${search}\n`;
+      if (search) text += `\nЧто ищу:\n${search}\n\n`;
 
       const selected = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => {
         return '#' + cb.value.replace(/\s+/g, '_');
       });
 
-      if (selected.length) text += `\nФетиши: ${selected.join(' ')}\n`;
+      if (selected.length) {
+        text += `Фетиши:\n${selected.join('\n')}\n`;
+      }
 
       return text.trim();
     }
@@ -172,11 +164,9 @@
       try {
         await navigator.clipboard.writeText(text);
 
-        // Показываем модалку
         document.getElementById('copiedText').textContent = text;
         document.getElementById('successModal').classList.remove('hidden');
 
-        // Таймер 3 секунды
         let seconds = 3;
         const countdownEl = document.getElementById('countdown');
         countdownEl.textContent = seconds;
@@ -191,7 +181,7 @@
         }, 1000);
 
       } catch (e) {
-        alert('Не удалось скопировать. Попробуй открыть в Chrome.');
+        alert('Не удалось скопировать. Попробуй в Chrome.');
       }
     }
 
