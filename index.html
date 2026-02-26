@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>NSFW Поиск • Phantasm Role</title>
+  <title>NSFW Анкета • Phantasm Role</title>
   <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -19,17 +19,19 @@
       <div class="text-4xl">🔞</div>
       <div>
         <h1 class="text-3xl font-bold">NSFW Анкета</h1>
-        <p class="text-pink-200">Phantasm Role — поиск по фетишам</p>
+        <p class="text-pink-200">Phantasm Role — поиск партнёра</p>
       </div>
     </div>
 
     <div class="p-6 space-y-8">
 
+      <!-- Основное -->
       <div>
-        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">👤</span> Основное</h2>
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">👤</span> Основная информация</h2>
         <div class="space-y-4">
-          <input type="text" id="nick" placeholder="Твой ник / имя" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
+          <input type="text" id="nick" placeholder="Ник / имя" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
           <input type="number" id="age" min="18" placeholder="Возраст (18+)" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
+          <input type="text" id="tg" placeholder="Telegram / VK для связи" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
           <select id="gender" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
             <option value="">Пол / гендер</option>
             <option value="Мужской">Мужской</option>
@@ -39,65 +41,75 @@
           </select>
           <select id="role" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
             <option value="">Роль в постели</option>
-            <option value="Актив / Доминант">Актив / Доминант</option>
-            <option value="Пассив / Саб">Пассив / Саб</option>
+            <option value="Доминант">Доминант</option>
+            <option value="Сабмиссив">Сабмиссив</option>
             <option value="Свитч">Свитч</option>
-            <option value="Верх / Низ">Верх / Низ</option>
           </select>
           <input type="text" id="city" placeholder="Город / где ищем" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
         </div>
       </div>
 
+      <!-- О себе -->
       <div>
         <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">📝</span> О себе и персонаже</h2>
-        <textarea id="about" rows="4" placeholder="Расскажи о себе, внешности, опыте, фантазиях..." 
+        <textarea id="about" rows="4" placeholder="Внешность, опыт, характер, что нравится..." 
                   class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg focus:outline-none focus:border-pink-500 resize-none"></textarea>
       </div>
 
+      <!-- Что ищу -->
       <div>
-        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">🔍</span> Что ищу в партнёре</h2>
-        <textarea id="search" rows="3" placeholder="Возраст, роль, что обязательно..." 
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">🔍</span> Что ищу</h2>
+        <textarea id="search" rows="3" placeholder="Возраст, роль, обязательные условия..." 
                   class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg focus:outline-none focus:border-pink-500 resize-none"></textarea>
       </div>
 
+      <!-- 18+ -->
       <div class="bg-red-900/30 border border-red-500/50 p-5 rounded-3xl">
         <label class="flex items-center gap-3 cursor-pointer">
           <input type="checkbox" id="adult" required class="w-6 h-6 accent-pink-600">
-          <span class="text-lg">Мне уже исполнилось 18 лет и я согласен(а) с NSFW-контентом</span>
+          <span class="text-lg">Мне 18+ и я готов(а) к NSFW-контенту</span>
         </label>
       </div>
 
+      <!-- Фетиши — очень много, как на poiskrp и подобных -->
       <div>
-        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">❤️‍🔥</span> Мои фетиши (ставь любые)</h2>
-        <div id="fetishes" class="space-y-6 text-sm"></div>
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">❤️‍🔥</span> Мои фетиши (ставь любые галочки)</h2>
+        <div id="fetishes" class="space-y-8 text-sm"></div>
       </div>
 
       <button onclick="submitForm()" 
-              class="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 py-5 rounded-3xl text-xl font-bold active:scale-95 transition-all">
-        Опубликовать в Phantasm Role
+              class="w-full bg-gradient-to-r from-pink-600 to-purple-600 py-5 rounded-3xl text-xl font-bold active:scale-95 transition-all">
+        Скопировать анкету
       </button>
     </div>
   </div>
 
-  <div id="successModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl p-8 max-w-xs w-full text-center border border-pink-500">
-      <div class="text-6xl mb-4">✅</div>
-      <h2 class="text-2xl font-bold mb-2">Пост предложен!</h2>
-      <p class="text-zinc-400">Открой Phantasm Role — твоя анкета в «Предложенных новостях» 🔥</p>
-      <button onclick="location.reload()" class="mt-6 w-full bg-pink-600 py-4 rounded-3xl font-bold">Закрыть</button>
+  <!-- Модалка успеха -->
+  <div id="successModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
+    <div class="bg-zinc-900 rounded-3xl p-8 max-w-sm w-full text-center border border-pink-500">
+      <div class="text-6xl mb-4">📋</div>
+      <h2 class="text-2xl font-bold mb-2">Анкета скопирована!</h2>
+      <p class="text-zinc-400 mb-6">Перейди в предложенные новости группы и вставь (Ctrl + V)</p>
+      <button onclick="openSuggested()" 
+              class="w-full bg-pink-600 py-4 rounded-3xl font-bold mb-3">
+        Открыть предложенные новости Phantasm Role
+      </button>
+      <button onclick="location.reload()" 
+              class="w-full bg-zinc-800 py-4 rounded-3xl font-medium">
+        Закрыть
+      </button>
     </div>
   </div>
 
   <script>
-    const vkBridge = window.vkBridge;
-    const GROUP_ID = -180485573;   // ← Phantasm Role (твоя группа)
-
     const fetishCategories = [
-      { title: "Базовые и разговорные", items: ["Грязные разговоры", "Намёки и заигрывания", "Флирт", "Секстинг", "Голосовые", "Ролевые диалоги"] },
-      { title: "BDSM и власть", items: ["Доминирование", "Подчинение", "Бондаж (верёвки)", "Шлепки / порка", "Воск", "Чокер / ошейник", "Пет-плей", "Хамство / унижение"] },
-      { title: "Фетиши тела и одежды", items: ["Фут-фетиш", "Ноги / колготки", "Лингери / чулки", "Кожа / латекс", "Косплей", "Униформа", "Тату / пирсинг"] },
-      { title: "Секс и практики", items: ["Оральный секс", "Анальный секс", "Двойное проникновение", "Игрушки", "Публичный секс", "Камшот / кремпай", "Сквирт", "Эджинг"] },
-      { title: "Особые и табу", items: ["Возрастные ролевки", "Инцест-рольки", "CNC (согласованное несогласие)", "Медсестра / доктор", "Учитель / ученик", "Босс / секретарь", "Много партнёров"] }
+      {title: "Базовые разговорные", items: ["Грязные разговоры", "Секстинг", "Голосовые сообщения", "Видео/фото", "Флирт", "Намёки", "Ролевые диалоги", "Описательный секс"]},
+      {title: "BDSM и власть", items: ["Доминирование", "Подчинение", "Бондаж", "Шибari", "Порка", "Воск", "Зажимы", "Унижение", "Хамство", "Пет-плей", "Ошейник", "Кляп", "Маска", "Публичное унижение", "Фейсплей", "Чокер", "Плётка"]},
+      {title: "Фетиши тела и одежды", items: ["Фут-фетиш", "Ноги", "Колготки/чулки", "Лингери", "Латекс/кожа", "Косплей", "Униформа", "Высокие каблуки", "Тату/пирсинг", "Волосы", "Грудь", "Попка", "Руки"]},
+      {title: "Сексуальные практики", items: ["Оральный", "Анальный", "Двойное проникновение", "Игрушки", "Вибраторы", "Страпон", "Камшот", "Кремпай", "Сквирт", "Эджинг", "Оргазм-контроль", "Фистинг"]},
+      {title: "Ролевые игры", items: ["Учитель/ученик", "Босс/секретарь", "Доктор/пациент", "Медсестра", "Полицейский/преступник", "Мастер/раб", "Инцест-рольки", "Возрастные ролевки", "Монстры", "Фэнтези"]},
+      {title: "Особые и табу", items: ["CNC", "Несогласие (согласованное)", "Много партнёров", "Публичный секс", "Риск", "Выставление напоказ", "Зоо (фантазия)", "Некро (фантазия)", "Гипноз", "Манипуляция"]},
+      {title: "Другое", items: ["Послевкусие", "Обнимашки после секса", "Целомудрие", "Частые встречи", "Онлайн только", "Оффлайн только", "Пара", "Тройничок"]}
     ];
 
     function renderFetishes() {
@@ -121,16 +133,17 @@
 
     async function submitForm() {
       if (!document.getElementById('adult').checked) {
-        alert('✅ Подтверди, что тебе 18+');
+        alert('Подтверди, что тебе 18+');
         return;
       }
 
-      const selectedFetishes = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => cb.value);
+      const selected = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => cb.value);
 
-      const postText = `🔞 НОВАЯ NSFW АНКЕТА В PHANTASM ROLE
+      const postText = `🔞 НОВАЯ NSFW АНКЕТА • Phantasm Role
 
 👤 Ник: ${document.getElementById('nick').value || '—'}
 🎂 Возраст: ${document.getElementById('age').value || '—'}
+📱 Контакт: ${document.getElementById('tg').value || '—'}
 ⚧ Пол: ${document.getElementById('gender').value || '—'}
 🔥 Роль: ${document.getElementById('role').value || '—'}
 📍 Место: ${document.getElementById('city').value || '—'}
@@ -142,33 +155,25 @@ ${document.getElementById('about').value || '—'}
 ${document.getElementById('search').value || '—'}
 
 ❤️‍🔥 Фетиши:
-${selectedFetishes.length ? selectedFetishes.join(' • ') : '—'}
+${selected.length ? selected.join(' • ') : '—'}
 
 #NSFW #RP #PhantasmRole #ПоискРП #Фетиши #18+`;
 
       try {
-        await vkBridge.send('VKWebAppInit');
-        const result = await vkBridge.send('VKWebAppShowWallPostBox', {
-          owner_id: GROUP_ID,
-          message: postText,
-          attachments: '',
-          from_group: 1
-        });
-
-        if (result.post_id) {
-          document.getElementById('successModal').classList.remove('hidden');
-        }
+        await navigator.clipboard.writeText(postText);
+        document.getElementById('successModal').classList.remove('hidden');
       } catch (e) {
-        alert('Ошибка. Убедись, что ты администратор группы Phantasm Role и мини-приложение добавлено в неё.');
+        alert('Не удалось скопировать. Попробуй ещё раз или обнови страницу.');
       }
     }
 
-    async function init() {
-      try { await vkBridge.send('VKWebAppInit'); } catch(e) {}
-      renderFetishes();
+    function openSuggested() {
+      window.open('https://vk.com/wall-180485573?suggested=1', '_blank');
     }
 
-    window.onload = init;
+    window.onload = () => {
+      renderFetishes();
+    };
   </script>
 </body>
 </html>
