@@ -27,7 +27,7 @@
 
     <div class="p-6 space-y-8">
 
-      <!-- Галочка 18+ сверху -->
+      <!-- 18+ -->
       <div class="bg-red-900/30 border border-red-500/50 p-5 rounded-3xl">
         <label class="flex items-center gap-3 cursor-pointer">
           <input type="checkbox" id="adult" required class="w-6 h-6 accent-pink-600">
@@ -66,6 +66,13 @@
         <textarea id="search" rows="3" placeholder="Что ищу в партнёре..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg resize-none"></textarea>
       </div>
 
+      <!-- Новое поле "Кого ищу" -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">👥</span> Кого ищу</h2>
+        <div id="kogo" class="grid grid-cols-3 gap-3 text-sm"></div>
+      </div>
+
+      <!-- Фетиши под спойлером -->
       <details class="group">
         <summary class="text-xl font-semibold mb-4 flex items-center gap-2 cursor-pointer list-none">
           ❤️‍🔥 Мои фетиши (ставь любые — нажми чтобы открыть/закрыть)
@@ -81,7 +88,7 @@
     </div>
   </div>
 
-  <!-- Модалка с таймером и текстом -->
+  <!-- Модалка с таймером -->
   <div id="successModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
     <div class="bg-zinc-900 rounded-3xl p-8 max-w-sm w-full text-center border border-pink-500">
       <div class="text-6xl mb-4">✅</div>
@@ -129,8 +136,22 @@
       });
     }
 
+    function renderKogo() {
+      const kogoList = ["Актив", "Пассив", "Уни"];
+      const container = document.getElementById('kogo');
+      kogoList.forEach(item => {
+        const div = document.createElement('div');
+        div.className = "flex items-center gap-2";
+        div.innerHTML = `
+          <input type="checkbox" value="${item}" class="w-5 h-5 accent-pink-600">
+          <span class="text-zinc-300">${item}</span>
+        `;
+        container.appendChild(div);
+      });
+    }
+
     function generatePostText() {
-      let text = '';
+      let text = 'Автор объявления достиг совершеннолетия\n\n';
 
       const about = document.getElementById('about').value.trim();
       if (about) text += `О себе:\n${about}\n\n`;
@@ -142,12 +163,15 @@
       const search = document.getElementById('search').value.trim();
       if (search) text += `\nЧто ищу:\n${search}\n\n`;
 
-      const selected = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => {
+      const kogoSelected = Array.from(document.querySelectorAll('#kogo input:checked')).map(cb => cb.value);
+      if (kogoSelected.length) text += `Кого ищу: ${kogoSelected.join(', ')}\n\n`;
+
+      const selectedFetishes = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => {
         return '#' + cb.value.replace(/\s+/g, '_');
       });
 
-      if (selected.length) {
-        text += `Фетиши:\n${selected.join('\n')}\n`;
+      if (selectedFetishes.length) {
+        text += `Фетиши: ${selectedFetishes.join(' ')}\n`;
       }
 
       return text.trim();
@@ -185,7 +209,10 @@
       }
     }
 
-    window.onload = renderFetishes;
+    window.onload = () => {
+      renderFetishes();
+      renderKogo();
+    };
   </script>
 </body>
 </html>
