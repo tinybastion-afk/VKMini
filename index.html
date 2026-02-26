@@ -30,34 +30,34 @@
       <div>
         <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">👤</span> Основная информация</h2>
         <div class="space-y-4">
-          <input type="text" id="nick" placeholder="Ник / имя" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
-          <input type="number" id="age" min="18" placeholder="Возраст (18+)" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
-          <input type="text" id="tg" placeholder="Telegram / VK для связи" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
-          <select id="gender" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
+          <input type="text" id="nick" placeholder="Ник / имя" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
+          <input type="number" id="age" min="18" placeholder="Возраст (18+)" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
+          <input type="text" id="tg" placeholder="Telegram / VK для связи" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
+          <select id="gender" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
             <option value="">Пол / гендер</option>
             <option value="Мужской">Мужской</option>
             <option value="Женский">Женский</option>
             <option value="Нон-байнари">Нон-байнари</option>
             <option value="Транс">Транс</option>
           </select>
-          <select id="role" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
+          <select id="role" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
             <option value="">Роль в постели</option>
             <option value="Доминант">Доминант</option>
             <option value="Сабмиссив">Сабмиссив</option>
             <option value="Свитч">Свитч</option>
           </select>
-          <input type="text" id="city" placeholder="Город / где ищем" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg focus:outline-none focus:border-pink-500">
+          <input type="text" id="city" placeholder="Город / где ищем" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-lg">
         </div>
       </div>
 
       <div>
         <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">📝</span> О себе и персонаже</h2>
-        <textarea id="about" rows="4" placeholder="Внешность, опыт, фантазии..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg focus:outline-none focus:border-pink-500 resize-none"></textarea>
+        <textarea id="about" rows="4" placeholder="Внешность, опыт, фантазии..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg resize-none"></textarea>
       </div>
 
       <div>
         <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><span class="text-pink-500">🔍</span> Что ищу</h2>
-        <textarea id="search" rows="3" placeholder="Возраст, роль, обязательные условия..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg focus:outline-none focus:border-pink-500 resize-none"></textarea>
+        <textarea id="search" rows="3" placeholder="Возраст, роль, обязательные условия..." class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-5 py-4 text-lg resize-none"></textarea>
       </div>
 
       <div class="bg-red-900/30 border border-red-500/50 p-5 rounded-3xl">
@@ -67,11 +67,9 @@
         </label>
       </div>
 
-      <!-- СПРОЙЛЕР С ФЕТИШАМИ -->
       <details class="group">
         <summary class="text-xl font-semibold mb-4 flex items-center gap-2 cursor-pointer list-none">
-          <span class="text-pink-500">❤️‍🔥</span> 
-          Мои фетиши (ставь любые — нажми чтобы открыть)
+          ❤️‍🔥 Мои фетиши (ставь любые — нажми чтобы открыть/закрыть)
           <span class="ml-auto text-pink-400 group-open:rotate-180 transition-transform">▼</span>
         </summary>
         <div id="fetishes" class="space-y-8 text-sm pl-2"></div>
@@ -87,12 +85,12 @@
   <div id="successModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
     <div class="bg-zinc-900 rounded-3xl p-8 max-w-sm w-full text-center border border-pink-500">
       <div class="text-6xl mb-4">✅</div>
-      <h2 class="text-2xl font-bold mb-2">Анкета готова!</h2>
-      <p class="text-zinc-400 mb-6">Текст скопирован в буфер.<br>Страница предложенных новостей уже открыта.</p>
+      <h2 class="text-2xl font-bold mb-2">Готово!</h2>
+      <p class="text-zinc-400 mb-6">Текст скопирован в буфер.<br>Страница предложенных новостей открыта.</p>
       <div class="bg-zinc-800 rounded-2xl p-5 text-left text-sm mb-6">
-        1. Нажми <b>«Предложить новость»</b><br>
+        1. Нажми «Предложить новость»<br>
         2. Вставь (Ctrl + V)<br>
-        3. «Далее» → «Предложить»
+        3. Нажми «Далее» → «Предложить»
       </div>
       <button onclick="location.reload()" class="w-full bg-pink-600 py-4 rounded-3xl font-bold">
         Заполнить ещё одну
@@ -128,31 +126,25 @@
     }
 
     function generatePostText() {
-      let lines = [];
+      let text = '';
 
-      const add = (emoji, label, value) => {
-        if (value && value.trim() !== '') lines.push(`${emoji} ${label}: ${value.trim()}`);
-      };
-
-      add('👤', 'Ник', document.getElementById('nick').value);
-      add('🎂', 'Возраст', document.getElementById('age').value);
-      add('📱', 'Контакт', document.getElementById('tg').value);
-      add('⚧', 'Пол', document.getElementById('gender').value);
-      add('🔥', 'Роль', document.getElementById('role').value);
-      add('📍', 'Город', document.getElementById('city').value);
+      if (document.getElementById('nick').value) text += `Ник: ${document.getElementById('nick').value}\n`;
+      if (document.getElementById('age').value) text += `Возраст: ${document.getElementById('age').value}\n`;
+      if (document.getElementById('tg').value) text += `Контакт: ${document.getElementById('tg').value}\n`;
+      if (document.getElementById('gender').value) text += `Пол: ${document.getElementById('gender').value}\n`;
+      if (document.getElementById('role').value) text += `Роль: ${document.getElementById('role').value}\n`;
+      if (document.getElementById('city').value) text += `Город: ${document.getElementById('city').value}\n`;
 
       const about = document.getElementById('about').value.trim();
-      if (about) lines.push(`\n📝 О себе:\n${about}`);
+      if (about) text += `\nО себе:\n${about}\n`;
 
       const search = document.getElementById('search').value.trim();
-      if (search) lines.push(`\n🔍 Ищу:\n${search}`);
+      if (search) text += `\nИщу:\n${search}\n`;
 
-      const selectedFetishes = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => cb.value);
-      if (selectedFetishes.length) {
-        lines.push(`\n❤️‍🔥 Фетиши:\n${selectedFetishes.join(' • ')}`);
-      }
+      const selected = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => '#' + cb.value);
+      if (selected.length) text += `\nФетиши: ${selected.join(' ')}\n`;
 
-      return `🔞 НОВАЯ NSFW АНКЕТА • Phantasm Role\n\n${lines.join('\n')}\n\n#NSFW #RP #PhantasmRole #ПоискРП #Фетиши #18+`;
+      return text.trim();
     }
 
     async function submitForm() {
@@ -167,7 +159,7 @@
         window.open('https://vk.com/wall-180485573?suggested=1', '_blank');
         document.getElementById('successModal').classList.remove('hidden');
       } catch (e) {
-        alert('Не удалось скопировать. Открой в Chrome.');
+        alert('Не удалось скопировать. Попробуй в Chrome.');
       }
     }
 
