@@ -27,7 +27,6 @@
 
     <div class="p-6 space-y-8">
 
-      <!-- 18+ -->
       <div class="bg-red-900/30 border border-red-500/50 p-5 rounded-3xl">
         <label class="flex items-center gap-3 cursor-pointer">
           <input type="checkbox" id="adult" required class="w-6 h-6 accent-pink-600">
@@ -86,7 +85,6 @@
     </div>
   </div>
 
-  <!-- Модалка с таймером -->
   <div id="successModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
     <div class="bg-zinc-900 rounded-3xl p-8 max-w-sm w-full text-center border border-pink-500">
       <div class="text-6xl mb-4">✅</div>
@@ -108,7 +106,9 @@
   </div>
 
   <script>
-    const fetishCategories = [
+    const vkBridge = window.vkBridge;
+
+    const fetishCategories = [ /* все категории фетишей */ 
       {title: "Базовые разговорные", items: ["Грязные разговоры", "Секстинг", "Голосовые", "Видео/фото", "Флирт", "Намёки", "Ролевые диалоги"]},
       {title: "BDSM и власть", items: ["Доминирование", "Подчинение", "Бондаж", "Шибari", "Порка", "Воск", "Унижение", "Пет-плей", "Ошейник", "Плётка"]},
       {title: "Фетиши тела", items: ["Фут-фетиш", "Ноги", "Колготки/чулки", "Лингери", "Латекс", "Косплей", "Тату/пирсинг"]},
@@ -168,9 +168,7 @@
         return '#' + cb.value.replace(/\s+/g, '_');
       });
 
-      if (selectedFetishes.length) {
-        text += `Фетиши: ${selectedFetishes.join(' ')}\n`;
-      }
+      if (selectedFetishes.length) text += `Фетиши: ${selectedFetishes.join(' ')}\n`;
 
       return text.trim();
     }
@@ -182,10 +180,8 @@
       }
 
       const text = generatePostText();
-      
       try {
         await navigator.clipboard.writeText(text);
-
         document.getElementById('copiedText').textContent = text;
         document.getElementById('successModal').classList.remove('hidden');
 
@@ -201,16 +197,24 @@
             window.open('https://vk.com/wall-180485573?suggested=1', '_blank');
           }
         }, 1000);
-
       } catch (e) {
-        alert('Не удалось скопировать. Попробуй в Chrome.');
+        alert('Не удалось скопировать.');
       }
     }
 
-    window.onload = () => {
+    // Инициализация VK Bridge (обязательно для запуска внутри ВК)
+    async function initApp() {
+      try {
+        await vkBridge.send('VKWebAppInit');
+        console.log('VK Bridge initialized successfully');
+      } catch (e) {
+        console.warn('VK Bridge init warning (нормально при прямой ссылке)', e);
+      }
       renderFetishes();
       renderKogo();
-    };
+    }
+
+    window.onload = initApp;
   </script>
 </body>
 </html>
