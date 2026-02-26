@@ -77,22 +77,33 @@
 
       <button onclick="submitForm()" 
               class="w-full bg-gradient-to-r from-pink-600 to-purple-600 py-5 rounded-3xl text-xl font-bold active:scale-95 transition-all">
-        Скопировать и открыть предложенные новости
+        Отправить анкету
       </button>
     </div>
   </div>
 
+  <!-- Модалка с таймером и полным текстом -->
   <div id="successModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
     <div class="bg-zinc-900 rounded-3xl p-8 max-w-sm w-full text-center border border-pink-500">
       <div class="text-6xl mb-4">✅</div>
-      <h2 class="text-2xl font-bold mb-2">Готово!</h2>
-      <p class="text-zinc-400 mb-6">Текст скопирован в буфер.<br>Страница предложенных новостей открыта.</p>
-      <div class="bg-zinc-800 rounded-2xl p-5 text-left text-sm mb-6">
+      <h2 class="text-2xl font-bold mb-2">Анкета скопирована!</h2>
+      <p class="text-zinc-400 mb-4">Текст готов к вставке</p>
+
+      <div class="bg-zinc-950 rounded-2xl p-4 text-left text-sm max-h-64 overflow-auto mb-6 border border-zinc-700">
+        <pre id="copiedText" class="whitespace-pre-wrap text-zinc-300"></pre>
+      </div>
+
+      <div id="timerContainer" class="text-pink-400 text-xl font-medium mb-6">
+        Перенаправление через <span id="countdown" class="text-3xl font-bold">3</span> секунды...
+      </div>
+
+      <div class="text-xs text-zinc-500 mb-8">
         1. Нажми «Предложить новость»<br>
-        2. Вставь (Ctrl + V)<br>
+        2. Вставь текст (Ctrl + V)<br>
         3. Нажми «Далее» → «Предложить»
       </div>
-      <button onclick="location.reload()" class="w-full bg-pink-600 py-4 rounded-3xl font-bold">
+
+      <button onclick="location.reload()" class="w-full bg-zinc-700 py-4 rounded-3xl font-medium">
         Заполнить ещё одну
       </button>
     </div>
@@ -141,7 +152,10 @@
       const search = document.getElementById('search').value.trim();
       if (search) text += `\nИщу:\n${search}\n`;
 
-      const selected = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => '#' + cb.value);
+      const selected = Array.from(document.querySelectorAll('#fetishes input:checked')).map(cb => {
+        return '#' + cb.value.replace(/\s+/g, '_');
+      });
+
       if (selected.length) text += `\nФетиши: ${selected.join(' ')}\n`;
 
       return text.trim();
@@ -154,12 +168,30 @@
       }
 
       const text = generatePostText();
+      
       try {
         await navigator.clipboard.writeText(text);
-        window.open('https://vk.com/wall-180485573?suggested=1', '_blank');
+
+        // Показываем модалку
+        document.getElementById('copiedText').textContent = text;
         document.getElementById('successModal').classList.remove('hidden');
+
+        // Таймер 3 секунды
+        let seconds = 3;
+        const countdownEl = document.getElementById('countdown');
+        countdownEl.textContent = seconds;
+
+        const interval = setInterval(() => {
+          seconds--;
+          countdownEl.textContent = seconds;
+          if (seconds <= 0) {
+            clearInterval(interval);
+            window.open('https://vk.com/wall-180485573?suggested=1', '_blank');
+          }
+        }, 1000);
+
       } catch (e) {
-        alert('Не удалось скопировать. Попробуй в Chrome.');
+        alert('Не удалось скопировать. Попробуй открыть в Chrome.');
       }
     }
 
